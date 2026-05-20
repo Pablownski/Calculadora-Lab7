@@ -1,0 +1,9 @@
+node_modules
+coverage
+dist
+.storybook-cache
+storybook-static
+.git
+.gitignore
+README.md
+*.log
