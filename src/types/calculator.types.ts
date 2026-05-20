@@ -30,3 +30,14 @@ export interface KeyboardProps {
   onToggleSign: () => void
   onDecimal: () => void
 }
+
+export type KeyHandler = 'number' | 'operation' | 'equal' | 'clear' | 'toggleSign' | 'decimal'
+
+export interface KeyConfig {
+  label: string
+  variant: ButtonVariant
+  handler: KeyHandler
+  value?: string
+  wide?: boolean
+  aria?: string
+}
