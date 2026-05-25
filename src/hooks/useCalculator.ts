@@ -30,8 +30,7 @@ export const useCalculator = () => {
       if (prev.display === ERROR_TEXT) return prev
       const base = prev.overwrite ? '' : prev.currentValue === '0' ? '' : prev.currentValue
       const next = base + digit
-      const digits = next.replace('-', '').replace('.', '')
-      if (digits.length > MAX_LENGTH) return prev
+      if (next.length > MAX_LENGTH) return prev
       return { ...prev, currentValue: next, display: next, overwrite: false }
     })
   }, [])
@@ -42,6 +41,7 @@ export const useCalculator = () => {
       const base = prev.overwrite ? '0' : prev.currentValue
       if (hasDecimal(base)) return prev
       const next = base + '.'
+      if (next.length > MAX_LENGTH) return prev
       return { ...prev, currentValue: next, display: next, overwrite: false }
     })
   }, [])
@@ -82,7 +82,7 @@ export const useCalculator = () => {
       const toggled = prev.currentValue.startsWith('-')
         ? prev.currentValue.slice(1)
         : '-' + prev.currentValue
-      if (toggled.replace('-', '').replace('.', '').length > MAX_LENGTH) return prev
+      if (toggled.length > MAX_LENGTH) return prev
       return { ...prev, currentValue: toggled, display: toggled }
     })
   }, [])

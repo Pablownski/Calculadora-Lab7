@@ -132,6 +132,27 @@ describe('useCalculator hook', () => {
     expect(result.current.display).toBe('6')
   })
 
+  it('counts minus sign within 9-char limit', () => {
+    const { result } = renderHook(() => useCalculator())
+    '123456789'.split('').forEach(d => act(() => { result.current.inputNumber(d) }))
+    act(() => { result.current.toggleSign() })
+    expect(result.current.display).toBe('123456789')
+  })
+
+  it('counts decimal point within 9-char limit', () => {
+    const { result } = renderHook(() => useCalculator())
+    '123456789'.split('').forEach(d => act(() => { result.current.inputNumber(d) }))
+    act(() => { result.current.inputDecimal() })
+    expect(result.current.display).toBe('123456789')
+  })
+
+  it('allows toggle sign when result fits within 9 chars', () => {
+    const { result } = renderHook(() => useCalculator())
+    '12345678'.split('').forEach(d => act(() => { result.current.inputNumber(d) }))
+    act(() => { result.current.toggleSign() })
+    expect(result.current.display).toBe('-12345678')
+  })
+
   it('clears to initial state', () => {
     const { result } = renderHook(() => useCalculator())
     act(() => { result.current.inputNumber('9') })
